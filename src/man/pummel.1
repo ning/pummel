@@ -1,0 +1,133 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "PUMMEL" "1" "March 2012" "" ""
+.
+.SH "NAME"
+\fBpummel\fR \- http load testing tool
+.
+.SH "SYNOPSIS"
+\fBpummel step\fR [\fIoptions\fR] [\fIurl\-file\fR]
+.
+.P
+\fBpummel limit\fR [\fIoptions\fR] [\fIurl\-file\fR]
+.
+.P
+\fBpummel benchmark\fR [\fIoptions\fR] [\fIurl\-file\fR]
+.
+.P
+\fBpummel analyze\fR
+.
+.P
+\fBpummel help [<command>]\fR
+.
+.SH "DESCRIPTION"
+Pummel is an HTTP load generation and measurement tool\. It is designed to help find the concurrency limits of an HTTP server relative to a specified latency latency at a given percentile\. For instance, the incantation:
+.
+.IP "" 4
+.
+.nf
+
+pummel limit \-\-percentile 99\.9 \-\-target 50 \./urls\.txt
+.
+.fi
+.
+.IP "" 0
+.
+.P
+would search for the highest concurrency level which will keep the 99\.9th percentile response times below 50 milliseconds\.
+.
+.P
+Alternately, pummel may be used for exploratory testing\. The step command is particularly useful for his, such as:
+.
+.IP "" 4
+.
+.nf
+
+pummel step \-\-percentile 99\.9 \-\-step \'c * 2\' \./urls\.txt
+.
+.fi
+.
+.IP "" 0
+.
+.P
+will double the concurrency for each run, printing the concurrency level, latency at the specified percentile, mean latency, and requests per second at that concurrency level\.
+.
+.SH "FILES"
+Pummel takes as input a sequence of URLs, one per line, either on standard input or specified in a urls file as a command line argument\. It will build a FIFO queue of requests which will be pulled off and executed concurrently by the program\.
+.
+.SH "COMMANDS"
+.
+.SS "limit"
+The \fBlimit\fR command takes a list of urls from either standard in or from a file specifed as an argument to the command\.
+.
+.TP
+\fB\-l\fR, \fB\-\-labels\fR
+Print column labels in the output
+.
+.TP
+\fB\-m\fR \fImax\-requests\fR, \fB\-\-max\fR \fImax\-requests\fR
+Maximum number of requests to execute
+.
+.TP
+\fB\-p\fR \fIpercentile\fR, \fB\-\-percentile\fR \fIpercentile\fR
+Percentile to try to target, default is 99th percentile
+.
+.TP
+\fB\-s\fR \fIstart\fR, \fB\-\-start\fR \fIstart\fR
+Initial concurrency level, defaults to 100
+.
+.TP
+\fB\-t\fR \fItarget\fR, \fB\-\-target\fR \fItarget\fR
+Target 99th percentile threshold, default is 100
+.
+.SS "step"
+The \fBstep\fR command takes a list of urls from either standard in or from a file specifed as an argument to the command\.
+.
+.TP
+\fB\-l\fR, \fB\-\-labels\fR
+Show column labels
+.
+.TP
+\fB\-L\fR \fIlimit\fR, \fB\-\-limit\fR \fIlimit\fR
+concurrency limit to stop at, default is 2147483647
+.
+.TP
+\fB\-m\fR \fImax\-requests\fR, \fB\-\-max\-requests\fR \fImax\-requests\fR
+Maximum number of requests to execute
+.
+.TP
+\fB\-p\fR \fIpercentile\fR, \fB\-\-percentile\fR \fIpercentile\fR
+Percentile to try to target, default is 99th percentile
+.
+.TP
+\fB\-s\fR \fIstart\fR, \fB\-\-start\fR \fIstart\fR
+initial concurrency level, defaults to 100
+.
+.TP
+\fB\-\-step\fR \fIstep\-function\fR
+Expression used to calculate the next concurrency level\. The default is \fBc + 1\fR which increments the concurrency level by 1\. It accepts either an MVEL Expression \fIhttp://mvel\.codehaus\.org/\fR or Clojure fucntion \fIhttp://clojure\.org/\fR function\. In the MVEL case the input level is contained in a variable named \fBc\fR, in the clojure case it will be the lone argument to the function\.
+.
+.SS "benchmark"
+The \fBbenchmark\fR command takes a list of urls from either standard in or from a file specifed as an argument to the command\.
+.
+.TP
+\fB\-c\fR \fIconcurrency\fR, \fB\-\-concurrency\fR \fIconcurrency\fR
+Concurrency \-\- how many requests to keep in flight at once
+.
+.TP
+\fB\-m\fR \fImaxRequests\fR, \fB\-\-max\fR \fImaxRequests\fR
+Maximum number of requests to execute
+.
+.TP
+\fB\-r\fR, \fB\-\-report\fR
+report basic stats on stderr when finished:
+.
+.SS "analyze"
+The \fBanalyze\fR command takes a list of times, in millis, one per line on standard input\. This is useful in combination with the \fBbenchmark\fR command\.
+.
+.SH "COPYRIGHT"
+Pummel is Copyright (C) 2012 Ning, Inc\.
+.
+.P
+Pummel is available under the Apache License, Version 2\.0 \fIhttp://www\.apache\.org/licenses/LICENSE\-2\.0\.txt\fR

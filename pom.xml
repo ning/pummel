@@ -152,16 +152,15 @@
                                         <prefix>/usr/bin</prefix>
                                     </mapper>
                                 </data>
-                                <!--
                                 <data>
-                                    <src>${basedir}/src/man</src>
+                                    <src>${basedir}/src/man/pummel.1</src>
                                     <type>file</type>
                                     <mapper>
                                         <type>perm</type>
-                                        <prefix>/usr/share/man</prefix>
+                                        <prefix>/usr/share/man/man1</prefix>
                                     </mapper>
                                 </data>
-                                -->
+
                             </dataSet>
                         </configuration>
                     </execution>
