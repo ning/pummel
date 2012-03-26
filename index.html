@@ -1,88 +1,206 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset='utf-8'>
-
-  <title>ning/pummel @ GitHub</title>
-
-  <style type="text/css">
-    body {
-      margin-top: 1.0em;
-      background-color: #d2ee34;
-      font-family: Helvetica, Arial, FreeSans, san-serif;
-      color: #000000;
-    }
-    #container {
-      margin: 0 auto;
-      width: 700px;
-    }
-    h1 { font-size: 3.8em; color: #2d11cb; margin-bottom: 3px; }
-    h1 .small { font-size: 0.4em; }
-    h1 a { text-decoration: none }
-    h2 { font-size: 1.5em; color: #2d11cb; }
-    h3 { text-align: center; color: #2d11cb; }
-    a { color: #2d11cb; }
-    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
-    .download { float: right; }
-    pre { background: #000; color: #fff; padding: 15px;}
-    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
-    .footer { text-align:center; padding-top:30px; font-style: italic; }
+  <meta http-equiv='content-type' value='text/html;charset=utf8'>
+  <meta name='generator' value='Ronn/v0.7.3 (http://github.com/rtomayko/ronn/tree/0.7.3)'>
+  <title>pummel(1) - http load testing tool</title>
+  <style type='text/css' media='all'>
+  /* style: man */
+  body#manpage {margin:0}
+  .mp {max-width:100ex;padding:0 9ex 1ex 4ex}
+  .mp p,.mp pre,.mp ul,.mp ol,.mp dl {margin:0 0 20px 0}
+  .mp h2 {margin:10px 0 0 0}
+  .mp > p,.mp > pre,.mp > ul,.mp > ol,.mp > dl {margin-left:8ex}
+  .mp h3 {margin:0 0 0 4ex}
+  .mp dt {margin:0;clear:left}
+  .mp dt.flush {float:left;width:8ex}
+  .mp dd {margin:0 0 0 9ex}
+  .mp h1,.mp h2,.mp h3,.mp h4 {clear:left}
+  .mp pre {margin-bottom:20px}
+  .mp pre+h2,.mp pre+h3 {margin-top:22px}
+  .mp h2+pre,.mp h3+pre {margin-top:5px}
+  .mp img {display:block;margin:auto}
+  .mp h1.man-title {display:none}
+  .mp,.mp code,.mp pre,.mp tt,.mp kbd,.mp samp,.mp h3,.mp h4 {font-family:monospace;font-size:14px;line-height:1.42857142857143}
+  .mp h2 {font-size:16px;line-height:1.25}
+  .mp h1 {font-size:20px;line-height:2}
+  .mp {text-align:justify;background:#fff}
+  .mp,.mp code,.mp pre,.mp pre code,.mp tt,.mp kbd,.mp samp {color:#131211}
+  .mp h1,.mp h2,.mp h3,.mp h4 {color:#030201}
+  .mp u {text-decoration:underline}
+  .mp code,.mp strong,.mp b {font-weight:bold;color:#131211}
+  .mp em,.mp var {font-style:italic;color:#232221;text-decoration:none}
+  .mp a,.mp a:link,.mp a:hover,.mp a code,.mp a pre,.mp a tt,.mp a kbd,.mp a samp {color:#0000ff}
+  .mp b.man-ref {font-weight:normal;color:#434241}
+  .mp pre {padding:0 4ex}
+  .mp pre code {font-weight:normal;color:#434241}
+  .mp h2+pre,h3+pre {padding-left:0}
+  ol.man-decor,ol.man-decor li {margin:3px 0 10px 0;padding:0;float:left;width:33%;list-style-type:none;text-transform:uppercase;color:#999;letter-spacing:1px}
+  ol.man-decor {width:100%}
+  ol.man-decor li.tl {text-align:left}
+  ol.man-decor li.tc {text-align:center;letter-spacing:4px}
+  ol.man-decor li.tr {text-align:right;float:right}
   </style>
 </head>
+<!--
+  The following styles are deprecated and will be removed at some point:
+  div#man, div#man ol.man, div#man ol.head, div#man ol.man.
 
-<body>
-  <a href="https://github.com/ning/pummel"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+  The .man-page, .man-decor, .man-head, .man-foot, .man-title, and
+  .man-navigation should be used instead.
+-->
+<body id='manpage'>
+  <div class='mp' id='man'>
 
-  <div id="container">
-
-    <div class="download">
-      <a href="https://github.com/ning/pummel/zipball/master">
-        <img border="0" width="90" src="https://github.com/images/modules/download/zip.png"></a>
-      <a href="https://github.com/ning/pummel/tarball/master">
-        <img border="0" width="90" src="https://github.com/images/modules/download/tar.png"></a>
-    </div>
-
-    <h1><a href="https://github.com/ning/pummel">pummel</a>
-      <span class="small">by <a href="https://github.com/ning">ning</a></span></h1>
-
-    <div class="description">
-      
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-      <h2>Authors</h2>
-      <p>Brian McCallister (brianm@skife.org)<br/>      </p>
-    
-
-    
-      <h2>Contact</h2>
-      <p>Ning (ningadvocacy@gmail.com)<br/>      </p>
-    
-
-    <h2>Download</h2>
-    <p>
-      You can download this project in either
-      <a href="https://github.com/ning/pummel/zipball/master">zip</a> or
-      <a href="https://github.com/ning/pummel/tarball/master">tar formats.
-    </p>
-    <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
-      by running:
-      <pre>$ git clone git://github.com/ning/pummel</pre>
-    </p>
-
-    <div class="footer">
-      get the source code on GitHub : <a href="https://github.com/ning/pummel">ning/pummel</a>
-    </div>
-
+  <div class='man-navigation' style='display:none'>
+    <a href="#NAME">NAME</a>
+    <a href="#SYNOPSIS">SYNOPSIS</a>
+    <a href="#DESCRIPTION">DESCRIPTION</a>
+    <a href="#FILES">FILES</a>
+    <a href="#COMMANDS">COMMANDS</a>
+    <a href="#DEPENDENCIES">DEPENDENCIES</a>
+    <a href="#INSTALLING">INSTALLING</a>
+    <a href="#COPYRIGHT">COPYRIGHT</a>
   </div>
 
+  <ol class='man-decor man-head man head'>
+    <li class='tl'>pummel(1)</li>
+    <li class='tc'></li>
+    <li class='tr'>pummel(1)</li>
+  </ol>
+
+  <h2 id="NAME">NAME</h2>
+<p class="man-name">
+  <code>pummel</code> - <span class="man-whatis">http load testing tool</span>
+</p>
+
+<h2 id="SYNOPSIS">SYNOPSIS</h2>
+
+<p><code>pummel step</code> [<var>options</var>] [<var>url-file</var>]</p>
+
+<p><code>pummel limit</code> [<var>options</var>] [<var>url-file</var>]</p>
+
+<p><code>pummel benchmark</code> [<var>options</var>] [<var>url-file</var>]</p>
+
+<p><code>pummel analyze</code></p>
+
+<p><code>pummel help [&lt;command>]</code></p>
+
+<h2 id="DESCRIPTION">DESCRIPTION</h2>
+
+<p>Pummel is an HTTP load generation and measurement tool. It is designed
+to help find the concurrency limits of an HTTP server relative to a
+specified latency latency at a given percentile. For instance, the
+incantation:</p>
+
+<pre><code>pummel limit --percentile 99.9 --target 50 ./urls.txt
+</code></pre>
+
+<p>would search for the highest concurrency level which will keep the
+99.9th percentile response times below 50 milliseconds.</p>
+
+<p>Alternately, pummel may be used for exploratory testing. The step
+command is particularly useful for his, such as:</p>
+
+<pre><code>pummel step --percentile 99.9 --step 'c * 2' ./urls.txt
+</code></pre>
+
+<p>will double the concurrency for each run, printing the concurrency
+level, latency at the specified percentile, mean latency, and requests
+per second at that concurrency level.</p>
+
+<h2 id="FILES">FILES</h2>
+
+<p>Pummel takes as input a sequence of URLs, one per line, either on
+standard input or specified in a urls file as a command line
+argument. It will build a FIFO queue of requests which will be
+pulled off and executed concurrently by the program.</p>
+
+<h2 id="COMMANDS">COMMANDS</h2>
+
+<h3 id="limit">limit</h3>
+
+<p>The <code>limit</code> command takes a list of urls from either standard in or
+from a file specifed as an argument to the command.</p>
+
+<dl>
+<dt><code>-l</code>, <code>--labels</code></dt><dd>Print column labels in the output</dd>
+<dt><code>-m</code> <var>max-requests</var>, <code>--max</code> <var>max-requests</var></dt><dd><p>Maximum number of requests to execute</p></dd>
+<dt><code>-p</code> <var>percentile</var>, <code>--percentile</code> <var>percentile</var></dt><dd><p>Percentile to try to target, default is 99th percentile</p></dd>
+<dt><code>-s</code> <var>start</var>, <code>--start</code> <var>start</var></dt><dd><p>Initial concurrency level, defaults to 100</p></dd>
+<dt><code>-t</code> <var>target</var>, <code>--target</code> <var>target</var></dt><dd><p>Target 99th percentile threshold, default is 100</p></dd>
+</dl>
+
+
+<h3 id="step">step</h3>
+
+<p>The <code>step</code> command takes a list of urls from either standard in or
+from a file specifed as an argument to the command.</p>
+
+<dl>
+<dt><code>-l</code>, <code>--labels</code></dt><dd><p>Show column labels</p></dd>
+<dt><code>-L</code> <var>limit</var>, <code>--limit</code> <var>limit</var></dt><dd><p>concurrency limit to stop at, default is 2147483647</p></dd>
+<dt><code>-m</code> <var>max-requests</var>, <code>--max-requests</code> <var>max-requests</var></dt><dd><p>Maximum number of requests to execute</p></dd>
+<dt><code>-p</code> <var>percentile</var>, <code>--percentile</code> <var>percentile</var></dt><dd><p>Percentile to try to target, default is 99th percentile</p></dd>
+<dt><code>-s</code> <var>start</var>, <code>--start</code> <var>start</var></dt><dd><p>initial concurrency level, defaults to 100</p></dd>
+<dt><code>--step</code> <var>step-function</var></dt><dd><p>Expression used to calculate the next concurrency level. The default
+is <code>c + 1</code> which increments the concurrency level by 1. It accepts
+either an <a href="http://mvel.codehaus.org/">MVEL Expression</a> or
+<a href="http://clojure.org/">Clojure fucntion</a> function. In the MVEL case
+the input level is contained in a variable named <code>c</code>, in the clojure
+case it will be the lone argument to the function.</p></dd>
+</dl>
+
+
+<h3 id="benchmark">benchmark</h3>
+
+<p>The <code>benchmark</code> command takes a list of urls from either standard in or
+from a file specifed as an argument to the command.</p>
+
+<dl>
+<dt><code>-c</code> <var>concurrency</var>, <code>--concurrency</code> <var>concurrency</var></dt><dd><p>Concurrency -- how many requests to keep in flight at once</p></dd>
+<dt><code>-m</code> <var>maxRequests</var>, <code>--max</code> <var>maxRequests</var></dt><dd><p>Maximum number of requests to execute</p></dd>
+<dt><code>-r</code>, <code>--report</code></dt><dd><p>report basic stats on stderr when finished:</p></dd>
+</dl>
+
+
+<h3 id="analyze">analyze</h3>
+
+<p>The <code>analyze</code> command takes a list of times, in millis, one per line
+on standard input. This is useful in combination with the <code>benchmark</code>
+command.</p>
+
+<h2 id="DEPENDENCIES">DEPENDENCIES</h2>
+
+<p>Pummel requires Java, at least 1.6, be installed. The executable is
+actually a clever mangled executable jar file.</p>
+
+<h2 id="INSTALLING">INSTALLING</h2>
+
+<p>Precompiled pummel binaries are available
+<a href="http://static.skife.org/pummel_0.0.2.deb">as a deb</a> or as a
+<a href="http://static.skife.org/pummel-0.0.2">binary executable</a>. If you
+download the binary executable you will probably need to set it <code>chmod
++x pummel-0.0.2</code>.</p>
+
+<p>Source is available <a href="http://github.com/ning/pummel">on github</a> and
+uses <a href="http://maven.apache.org">Apache Maven</a> to build. To build the
+dpkg and binary use <code>mvn package</code></p>
+
+<h2 id="COPYRIGHT">COPYRIGHT</h2>
+
+<p>Pummel is Copyright (C) 2012 Ning, Inc.</p>
+
+<p>Pummel is available under the
+<a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a></p>
+
+
+  <ol class='man-decor man-foot man foot'>
+    <li class='tl'></li>
+    <li class='tc'>March 2012</li>
+    <li class='tr'>pummel(1)</li>
+  </ol>
+
+  </div>
 </body>
 </html>
