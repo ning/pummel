@@ -91,6 +91,82 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <!--<plugin>-->
+                <!--<groupId>org.codehaus.mojo</groupId>-->
+                <!--<artifactId>rpm-maven-plugin</artifactId>-->
+                <!--<version>2.1-alpha-1</version>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<goals>-->
+                            <!--<goal>attached-rpm</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+                <!--<configuration>-->
+                    <!--<copyright>2012, Ning</copyright>-->
+                    <!--<distribution>XN</distribution>-->
+                    <!--<group>XN</group>-->
+                    <!--<icon>src/main/resources/icon.gif</icon>-->
+                    <!--<packager>Ning</packager>-->
+                    <!--<prefix>/usr</prefix>-->
+                    <!--<targetVendor>Ning</targetVendor>-->
+                    <!--<changelogFile>src/changelog</changelogFile>-->
+                    <!--<defineStatements>-->
+                        <!--<defineStatement>_unpackaged_files_terminate_build 0</defineStatement>-->
+                    <!--</defineStatements>-->
+                    <!--<mappings>-->
+                        <!--<mapping>-->
+                            <!--<directory>/usr/bin/pummel</directory>-->
+                            <!--<filemode>755</filemode>-->
+                            <!--<username>root</username>-->
+                            <!--<groupname>root</groupname>-->
+                            <!--<sources>-->
+                                <!--<source>-->
+                                    <!--<location>target/pummel</location>-->
+                                <!--</source>-->
+                            <!--</sources>-->
+                        <!--</mapping>-->
+                    <!--</mappings>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
+
+            <plugin>
+                <artifactId>jdeb</artifactId>
+                <groupId>org.vafer</groupId>
+                <version>0.9</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jdeb</goal>
+                        </goals>
+                        <configuration>
+                            <dataSet>
+                                <data>
+                                    <src>${project.build.directory}/pummel</src>
+                                    <type>file</type>
+                                    <mapper>
+                                        <type>perm</type>
+                                        <filemode>755</filemode>
+                                        <prefix>/usr/bin</prefix>
+                                    </mapper>
+                                </data>
+                                <!--
+                                <data>
+                                    <src>${basedir}/src/man</src>
+                                    <type>file</type>
+                                    <mapper>
+                                        <type>perm</type>
+                                        <prefix>/usr/share/man</prefix>
+                                    </mapper>
+                                </data>
+                                -->
+                            </dataSet>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 

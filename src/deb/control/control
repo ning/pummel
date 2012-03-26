@@ -1,0 +1,9 @@
+Package: [[name]]
+Version: [[version]]
+Section: misc
+Priority: optional
+Architecture: all
+Depends: java6-runtime-headless
+Maintainer: Brian McCallister <brianm@skife.org>
+Description: HTTP Load Testing Utility
+Distribution: development
