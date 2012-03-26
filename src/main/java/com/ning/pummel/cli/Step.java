@@ -37,6 +37,9 @@ public class Step implements Callable<Void>
     @Option(name = {"-l", "--labels"}, description = "Show column labels")
     public boolean labels = false;
 
+    @Option(name="--gnuplot", description = "Output as gnuplot script")
+    public boolean gnuplot = false;
+
     @Option(name = {"-L", "--limit"}, description = "concurrency limit to stop at, default is " + Integer.MAX_VALUE)
     public int limit = Integer.MAX_VALUE;
 
@@ -81,7 +84,20 @@ public class Step implements Callable<Void>
 
         StepFunction step = of.get();
 
-        if (labels) {System.out.printf("clients\ttp%.1f\tmean\treqs/sec\n", percentile);}
+        if (gnuplot) {
+            System.out.println("set terminal png size 640,480\n" +
+                               "set xlabel 'concurrency'\n" +
+                               "set ylabel 'millis'\n" +
+                               "set output 'tp99.png'\n" +
+                               "plot '-' using 2 with lines title 'tp99 response time'\n" +
+                               "set output 'mean.png'\n" +
+                               "plot '-' using 3 with lines title 'mean response time'\n" +
+                               "set output 'requests_per_second.png'\n" +
+                               "plot '-' using 4 with lines title 'requests/second'");
+        }
+        else if (labels) {
+            System.out.printf("clients\ttp%.1f\tmean\treqs/sec\n", percentile);
+        }
         int concurrency = start;
         do {
             DescriptiveStatistics stats = new Fight(concurrency, urls).call();
@@ -90,7 +106,6 @@ public class Step implements Callable<Void>
                               stats.getPercentile(percentile),
                               stats.getMean(),
                               (1000 / stats.getMean()) * concurrency);
-            Map<String, Integer> vals = ImmutableMap.of("c", concurrency);
             concurrency = step.step(concurrency);
         }
         while (concurrency < limit);
@@ -105,7 +120,7 @@ public class Step implements Callable<Void>
 
     private static Optional<StepFunction> clojure(String src) throws ClassNotFoundException
     {
-        Class.forName(RT.class.getName());
+        RT.class.getName(); // force rt to initialize first
         try {
             final IFn fn = (IFn) clojure.lang.Compiler.load(new StringReader(src));
             StepFunction step = new StepFunction()
