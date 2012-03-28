@@ -90,7 +90,6 @@ public class Step implements Callable<Void>
                               stats.getPercentile(percentile),
                               stats.getMean(),
                               (1000 / stats.getMean()) * concurrency);
-            Map<String, Integer> vals = ImmutableMap.of("c", concurrency);
             concurrency = step.step(concurrency);
         }
         while (concurrency < limit);
