@@ -13,6 +13,7 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ThreadPoolExecutor;
 
 @Command(name = "limit", description = "find the lowest concurrency level at which response times stay below a threshold at a certain percentile")
 public class Limit implements Callable<Void>
@@ -60,13 +61,15 @@ public class Limit implements Callable<Void>
 
         if (labels) {System.out.printf("clients\ttp%.1f\tmean\treqs/sec\n", percentile);}
 
+        ThreadPoolExecutor exec = Fight.threadPoolExecutor();
+
         int best_concurency = start;
         int concurrency = start;
         DescriptiveStatistics result;
         DescriptiveStatistics best_result = null;
         double reqs_per_sec;
         double res = 1;
-        while ((result = new Fight(concurrency, urls).call()).getPercentile(percentile) < target) {
+        while ((result = new Fight(exec, concurrency, urls).call()).getPercentile(percentile) < target) {
             res = result.getPercentile(percentile);
             reqs_per_sec = ((1000 / result.getMean()) * concurrency);
             System.out.printf("%d\t%.2f\t%.2f\t%.2f\n", concurrency, res, result.getMean(), reqs_per_sec);
@@ -79,7 +82,7 @@ public class Limit implements Callable<Void>
 
         int increment = (int) Math.sqrt((concurrency));
         concurrency = concurrency / 2;
-        while ((result = new Fight(concurrency, urls).call()).getPercentile(percentile) < target) {
+        while ((result = new Fight(exec, concurrency, urls).call()).getPercentile(percentile) < target) {
             res = result.getPercentile(percentile);
             reqs_per_sec = ((1000 / result.getMean()) * concurrency);
             System.out.printf("%d\t%.2f\t%.2f\t%.2f\n", concurrency, res, result.getMean(), reqs_per_sec);
@@ -92,7 +95,7 @@ public class Limit implements Callable<Void>
 
         increment = (int) Math.sqrt(Math.sqrt(concurrency));
         concurrency = concurrency - (2 * increment);
-        while ((result = new Fight(concurrency, urls).call()).getPercentile(percentile) < target) {
+        while ((result = new Fight(exec, concurrency, urls).call()).getPercentile(percentile) < target) {
             res = result.getPercentile(percentile);
             reqs_per_sec = ((1000 / result.getMean()) * concurrency);
             System.out.printf("%d\t%.2f\t%.2f\t%.2f\n", concurrency, res, result.getMean(), reqs_per_sec);
@@ -107,6 +110,8 @@ public class Limit implements Callable<Void>
         assert best_result != null;
         reqs_per_sec = ((1000 / best_result.getMean()) * best_concurency);
         System.out.printf("%d\t%.2f\t%.2f\t%.2f\n", best_concurency, best_result.getPercentile(percentile), best_result.getMean(), reqs_per_sec);
+
+        exec.shutdownNow();
 
         return null;
     }
