@@ -52,6 +52,9 @@ public class Step implements Callable<Void>
     @Option(name = {"-p", "--percentile"}, description = "Percentile to report, default is 99th percentile")
     public double percentile = 99.0;
 
+    @Option(name = {"-e", "--errors"}, description = "Log and continue on error instead of quitting")
+    public boolean continueOnErrors;
+
     @Arguments(title = "url file", description = "input file to pull urls from, otherwise will use stdin")
     public File urlFile;
 
@@ -87,25 +90,26 @@ public class Step implements Callable<Void>
 
         StepFunction step = of.get();
 
-        if (labels) {System.out.printf("clients\ttp%.1f\tmean\tstddev\tmax\tcount\ttime\treqs/sec\n", percentile);}
+        if (labels) {System.out.printf("clients\ttp%.1f\tmean\tstddev\tmax\tcount\terrors\ttime\treqs/sec\n", percentile);}
         int concurrency = start;
         ThreadPoolExecutor exec = Fight.threadPoolExecutor();
 
         do {
-            Fight fight = new Fight(exec, concurrency, urls);
+            Fight fight = new Fight(exec, concurrency, urls, continueOnErrors);
 
             long start = System.nanoTime();
             DescriptiveStatistics stats = fight.call();
             long stop = System.nanoTime();
             long duration_nanos = stop - start;
 
-            System.out.printf("%d\t%.2f\t%.2f\t%.2f\t%.2f\t%d\t%.2f\t%.2f\n",
+            System.out.printf("%d\t%.2f\t%.2f\t%.2f\t%.2f\t%d\t%d\t%.2f\t%.2f\n",
                               concurrency,
                               nsToMs(stats.getPercentile(percentile)),
                               nsToMs(stats.getMean()),
                               nsToMs(stats.getStandardDeviation()),
                               nsToMs(stats.getMax()),
                               stats.getN(),
+                              urls.size() - stats.getN(),
                               ((double) duration_nanos) / SECONDS.toNanos(1),
                               ((double) stats.getN()) * SECONDS.toNanos(1) / duration_nanos);
             concurrency = step.step(concurrency);

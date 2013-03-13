@@ -63,13 +63,14 @@ public class Limit implements Callable<Void>
 
         ThreadPoolExecutor exec = Fight.threadPoolExecutor();
 
+        boolean continueOnErrors = false;
         int best_concurency = start;
         int concurrency = start;
         DescriptiveStatistics result;
         DescriptiveStatistics best_result = null;
         double reqs_per_sec;
         double res = 1;
-        while ((result = new Fight(exec, concurrency, urls).call()).getPercentile(percentile) < target) {
+        while ((result = new Fight(exec, concurrency, urls, continueOnErrors).call()).getPercentile(percentile) < target) {
             res = result.getPercentile(percentile);
             reqs_per_sec = ((1000 / result.getMean()) * concurrency);
             System.out.printf("%d\t%.2f\t%.2f\t%.2f\n", concurrency, res, result.getMean(), reqs_per_sec);
@@ -82,7 +83,7 @@ public class Limit implements Callable<Void>
 
         int increment = (int) Math.sqrt((concurrency));
         concurrency = concurrency / 2;
-        while ((result = new Fight(exec, concurrency, urls).call()).getPercentile(percentile) < target) {
+        while ((result = new Fight(exec, concurrency, urls, continueOnErrors).call()).getPercentile(percentile) < target) {
             res = result.getPercentile(percentile);
             reqs_per_sec = ((1000 / result.getMean()) * concurrency);
             System.out.printf("%d\t%.2f\t%.2f\t%.2f\n", concurrency, res, result.getMean(), reqs_per_sec);
@@ -95,7 +96,7 @@ public class Limit implements Callable<Void>
 
         increment = (int) Math.sqrt(Math.sqrt(concurrency));
         concurrency = concurrency - (2 * increment);
-        while ((result = new Fight(exec, concurrency, urls).call()).getPercentile(percentile) < target) {
+        while ((result = new Fight(exec, concurrency, urls, continueOnErrors).call()).getPercentile(percentile) < target) {
             res = result.getPercentile(percentile);
             reqs_per_sec = ((1000 / result.getMean()) * concurrency);
             System.out.printf("%d\t%.2f\t%.2f\t%.2f\n", concurrency, res, result.getMean(), reqs_per_sec);
