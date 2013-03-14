@@ -18,6 +18,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
+
 @Command(name = {"benchmark", "go"}, description = "Go beat up a server")
 public class Benchmark implements Callable<Void>
 {
@@ -74,19 +76,23 @@ public class Benchmark implements Callable<Void>
         long finish = System.nanoTime();
 
         if (report) {
-            System.err.printf("time\t%d\n", TimeUnit.MILLISECONDS.convert(finish - start, TimeUnit.NANOSECONDS));
+            System.err.printf("time\t%d\n", nsToMs(finish - start));
             System.err.printf("n\t%d\n", stats.getN());
-            System.err.printf("max\t%f\n", stats.getMax());
-            System.err.printf("mean\t%f\n", stats.getMean());
-            System.err.printf("99.9%%\t%f\n", stats.getPercentile(99.9));
-            System.err.printf("99%%\t%f\n", stats.getPercentile(99));
-            System.err.printf("90%%\t%f\n", stats.getPercentile(90));
-            System.err.printf("80%%\t%f\n", stats.getPercentile(80));
-            System.err.printf("50%%\t%f\n", stats.getPercentile(50));
+            System.err.printf("max\t%f\n", nsToMs(stats.getMax()));
+            System.err.printf("mean\t%f\n", nsToMs(stats.getMean()));
+            System.err.printf("99.9%%\t%f\n", nsToMs(stats.getPercentile(99.9)));
+            System.err.printf("99%%\t%f\n", nsToMs(stats.getPercentile(99)));
+            System.err.printf("90%%\t%f\n", nsToMs(stats.getPercentile(90)));
+            System.err.printf("80%%\t%f\n", nsToMs(stats.getPercentile(80)));
+            System.err.printf("50%%\t%f\n", nsToMs(stats.getPercentile(50)));
         }
 
         exec.shutdown();
 
         return null;
+    }
+
+    static double nsToMs(double duration_nanos) {
+        return duration_nanos / MILLISECONDS.toNanos(1);
     }
 }
