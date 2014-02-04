@@ -82,7 +82,7 @@ concurrency limit to stop at, default is 2147483647
   Expression used to calculate the next concurrency level. The default
   is `c + 1` which increments the concurrency level by 1. It accepts
   either an [MVEL Expression](http://mvel.codehaus.org/) or
-  [Clojure fucntion](http://clojure.org/) function. In the MVEL case
+  [Clojure function](http://clojure.org/) function. In the MVEL case
   the input level is contained in a variable named `c`, in the clojure
   case it will be the lone argument to the function.
 
